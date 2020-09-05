@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addWatchListAction } from '../redux/Actions';
+import { addFavouriteAction, RemoveFromFavouriteAction } from '../redux/Actions';
 
 const MovieCard = ({ movie }) => {
-	const { watchlist } = useSelector((state) => state.movies);
+	const { favourite } = useSelector((state) => state.movies);
 	const dispatch = useDispatch();
 
 	return (
@@ -13,13 +13,17 @@ const MovieCard = ({ movie }) => {
 			</div>
 			<div className="card-body">
 				<button
-					onClick={() => dispatch(addWatchListAction(movie))}
-					className="btn btn-primary"
-					disabled={watchlist.find((m) => m.id == movie.id) ? `disabled` : false}
+					onClick={() =>
+						dispatch(
+							favourite.find((m) => m.id == movie.id)
+								? RemoveFromFavouriteAction(movie.id)
+								: addFavouriteAction(movie)
+						)
+					}
+					className={`btn btn-` + (favourite.find((m) => m.id == movie.id) ? `danger` : `info`)}
 				>
-					Watchlist
+					{favourite.find((m) => m.id == movie.id) ? `Remove From Favourite` : `Add To Favourite`}
 				</button>
-				<button className="btn btn-info">Watched</button>
 			</div>
 		</div>
 	);

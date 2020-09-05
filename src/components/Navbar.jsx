@@ -26,13 +26,8 @@ const Navbar = () => {
 						</Link>
 					</li>
 					<li className="nav-item">
-						<Link className="nav-link" to="/watchlist">
-							Watchlist
-						</Link>
-					</li>
-					<li className="nav-item">
-						<Link className="nav-link" to="/watchedlist">
-							Watchedlist
+						<Link className="nav-link" to="/favourite">
+							Favourite
 						</Link>
 					</li>
 				</ul>

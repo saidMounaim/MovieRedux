@@ -2,7 +2,7 @@ import * as actions from './ActionsTypes';
 
 const initialState = {
 	movies: [],
-	watchlist: window.localStorage.getItem('watchlist') ? JSON.parse(window.localStorage.getItem('watchlist')) : [],
+	favourite: window.localStorage.getItem('favourite') ? JSON.parse(window.localStorage.getItem('favourite')) : [],
 };
 
 export const moviesReducer = (state = initialState, action) => {
@@ -12,12 +12,19 @@ export const moviesReducer = (state = initialState, action) => {
 				...state,
 				movies: action.payload,
 			};
-		case actions.ADD_TO_WATCHLIST:
-			const newMovie = [...state.watchlist, action.payload];
-			window.localStorage.setItem('watchlist', JSON.stringify(newMovie));
+		case actions.ADD_TO_FAVOURITE:
+			const newMovie = [...state.favourite, action.payload];
+			window.localStorage.setItem('favourite', JSON.stringify(newMovie));
 			return {
 				...state,
-				watchlist: newMovie,
+				favourite: newMovie,
+			};
+		case actions.REMOVE_FROM_FAVOURITE:
+			const originalFav = state.favourite;
+			const filtredFav = originalFav.filter((f) => f.id !== action.payload);
+			return {
+				...state,
+				favourite: filtredFav,
 			};
 		default:
 			return state;
